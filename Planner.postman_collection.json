@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "7e0b5489-6a26-4da7-a943-c5fb764f78cf",
+		"name": "Planner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28919232",
+		"_collection_link": "https://www.postman.com/dark-robot-470395/workspace/higor-abreu/collection/28919232-7e0b5489-6a26-4da7-a943-c5fb764f78cf?action=share&source=collection_link&creator=28919232"
+	},
+	"item": [
+		{
+			"name": "createTrip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"tripId\", jsonData.tripId);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"destination\": \"Florianópolis, SC\",\r\n    \"starts_at\": \"2024-06-25T21:51:54.734Z\",\r\n    \"ends_at\": \"2024-06-25T21:51:54.734Z\",\r\n    \"emails_to_invite\": [\r\n        \"ana@email.com\"\r\n    ],\r\n    \"owner_name\": \"Higor Abreu\",\r\n    \"owner_email\": \"higorabreuf@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/trips",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateTrip",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"destination\": \"Palhoça, SC\",\r\n    \"starts_at\": \"2024-06-22T21:51:54.734Z\",\r\n    \"ends_at\": \"2024-06-25T21:51:54.734Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/trips/d22b03ee-c891-4019-b1a8-d2d78ae5fad6",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trips",
+						"d22b03ee-c891-4019-b1a8-d2d78ae5fad6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTripDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/trips/{{tripId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trips",
+						"{{tripId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTripParticipants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/trips/{{tripId}}/participants",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trips",
+						"{{tripId}}",
+						"participants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTripActivities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/trips/{{tripId}}/activities",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trips",
+						"{{tripId}}",
+						"activities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTripLinks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/trips/{{tripId}}/links",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trips",
+						"{{tripId}}",
+						"links"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "confirmTrip",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/trips/{{tripId}}/confirm",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trips",
+						"{{tripId}}",
+						"confirm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registerActivity",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Praia da Pinheira\",\r\n    \"occurs_at\": \"2024-06-26T21:51:54.734Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/trips/{{tripId}}/activities",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trips",
+						"{{tripId}}",
+						"activities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registerLink",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"palhoca.com.br\",\r\n    \"title\": \"Informaçoes\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/trips/{{tripId}}/links",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trips",
+						"{{tripId}}",
+						"links"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "confirmParticipant",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ana\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/participants/617c2cb5-87d0-402e-b00c-3b5483391b3a/confirm",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"participants",
+						"617c2cb5-87d0-402e-b00c-3b5483391b3a",
+						"confirm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "inviteParticipant",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"joao@email.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/trips/{{tripId}}/invite",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"trips",
+						"{{tripId}}",
+						"invite"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
