@@ -1,6 +1,5 @@
-package com.rocketseat.planner.Activities;
+package com.rocketseat.planner.Activity;
 
-import com.rocketseat.planner.Participant.Participant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

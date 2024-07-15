@@ -1,9 +1,13 @@
 package com.rocketseat.planner.Trip;
 
-import com.rocketseat.planner.Activities.ActivityData;
-import com.rocketseat.planner.Activities.ActivityRequestPayload;
-import com.rocketseat.planner.Activities.ActivityResponse;
-import com.rocketseat.planner.Activities.ActivityService;
+import com.rocketseat.planner.Activity.ActivityData;
+import com.rocketseat.planner.Activity.ActivityRequestPayload;
+import com.rocketseat.planner.Activity.ActivityResponse;
+import com.rocketseat.planner.Activity.ActivityService;
+import com.rocketseat.planner.Link.LinkData;
+import com.rocketseat.planner.Link.LinkRequestPayload;
+import com.rocketseat.planner.Link.LinkResponse;
+import com.rocketseat.planner.Link.LinkService;
 import com.rocketseat.planner.Participant.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,6 +31,9 @@ public class TripController {
 
     @Autowired
     private ActivityService activityService;
+
+    @Autowired
+    private LinkService linkService;
 
     @PostMapping
     public ResponseEntity<TripCreateResponse> createTrip(@RequestBody TripRequestPayload payload) {
@@ -142,4 +148,31 @@ public class TripController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/{id}/links")
+    public ResponseEntity<List<LinkData>> getAllLinks(@PathVariable UUID id) {
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if (trip.isPresent()) {
+            List<LinkData> linkList = this.linkService.getAllLinksFromEvent(id);
+
+            return ResponseEntity.ok(linkList);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{id}/links")
+    public ResponseEntity<LinkResponse> registerLink(@PathVariable UUID id, @RequestBody LinkRequestPayload payload) {
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if (trip.isPresent()) {
+            Trip rawTrip = trip.get();
+
+            LinkResponse linkResponse = this.linkService.registerLink(payload, rawTrip);
+
+            return ResponseEntity.ok(linkResponse);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 }
